@@ -1,5 +1,7 @@
 package com.dailycodebuffer.Spring_boot_tutorial.controller;
 
+import com.dailycodebuffer.Spring_boot_tutorial.dto.request.DeptByNameRequestDTO;
+import com.dailycodebuffer.Spring_boot_tutorial.dto.response.DepartmentResponseDTO;
 import com.dailycodebuffer.Spring_boot_tutorial.exception.DepartmentNotFoundException;
 import com.dailycodebuffer.Spring_boot_tutorial.entity.Department;
 import com.dailycodebuffer.Spring_boot_tutorial.service.DepartmentService;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 public class DepartmentController {
+
     @Autowired
     private DepartmentService departmentService;
     private final Logger log = LoggerFactory.getLogger(DepartmentController.class);
@@ -52,8 +55,9 @@ public class DepartmentController {
         return departmentService.updateDepartment(departmentID, department);
     }
 
-    @GetMapping("/departments/name/{name}")
-    public Department fetchDeptByName(@PathVariable("name") String DeptName) throws DepartmentNotFoundException {
-        return departmentService.getDeptByName(DeptName);
+    @GetMapping("/departments/")
+    public ResponseEntity<DepartmentResponseDTO> fetchDeptByName(@RequestBody DeptByNameRequestDTO requestDTO) throws DepartmentNotFoundException {
+        DepartmentResponseDTO response = departmentService.getDeptByName(requestDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

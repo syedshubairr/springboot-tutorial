@@ -1,0 +1,14 @@
+spring:
+  profile: dev
+  application:
+    name: Spring-boot-tutorial
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot-dev
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect

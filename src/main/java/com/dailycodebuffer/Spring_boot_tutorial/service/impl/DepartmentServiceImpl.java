@@ -1,5 +1,7 @@
 package com.dailycodebuffer.Spring_boot_tutorial.service.impl;
 
+import com.dailycodebuffer.Spring_boot_tutorial.dto.request.DeptByNameRequestDTO;
+import com.dailycodebuffer.Spring_boot_tutorial.dto.response.DepartmentResponseDTO;
 import com.dailycodebuffer.Spring_boot_tutorial.exception.DepartmentNotFoundException;
 import com.dailycodebuffer.Spring_boot_tutorial.entity.Department;
 import com.dailycodebuffer.Spring_boot_tutorial.repository.DepartmentRepository;
@@ -59,8 +61,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getDeptByName(String deptName) throws DepartmentNotFoundException {
-        return departmentRepository.findByDepartmentName(deptName)
+    public DepartmentResponseDTO getDeptByName(DeptByNameRequestDTO request) throws DepartmentNotFoundException {
+
+        Department department = departmentRepository.findByDepartmentName(request.getName())
                 .orElseThrow(() -> new DepartmentNotFoundException("Could not find department"));
+
+        return DepartmentResponseDTO.builder()
+                .departmentName(department.getDepartmentName())
+                .departmentAddress(department.getDepartmentAddress())
+                .departmentCode(department.getDepartmentCode())
+                .build();
     }
 }
