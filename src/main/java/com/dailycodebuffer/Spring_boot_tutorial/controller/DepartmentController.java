@@ -1,11 +1,13 @@
 package com.dailycodebuffer.Spring_boot_tutorial.controller;
 
-import com.dailycodebuffer.Spring_boot_tutorial.model.Department;
+import com.dailycodebuffer.Spring_boot_tutorial.exception.DepartmentNotFoundException;
+import com.dailycodebuffer.Spring_boot_tutorial.entity.Department;
 import com.dailycodebuffer.Spring_boot_tutorial.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +34,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentID) {
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentID) throws DepartmentNotFoundException {
         return departmentService.fetchDepartmentId(departmentID);
     }
 
@@ -51,7 +53,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/name/{name}")
-    public Department fetchDeptByName(@PathVariable("name") String DeptName) {
+    public Department fetchDeptByName(@PathVariable("name") String DeptName) throws DepartmentNotFoundException {
         return departmentService.getDeptByName(DeptName);
     }
 }

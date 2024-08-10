@@ -1,4 +1,4 @@
-package com.dailycodebuffer.Spring_boot_tutorial.model;
+package com.dailycodebuffer.Spring_boot_tutorial.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
